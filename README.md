@@ -1,6 +1,6 @@
 # Brain-Tumor-Segmentation-Framework-with-Deep-Nuanced-Reasoning-and-Swin-T
 
-## 相关仓库
+## Related warehouses
 
 | 模型             | 路径                                                         |
 | ---------------- | ------------------------------------------------------------ |
@@ -8,29 +8,33 @@
 | Unet 3+          | https://github.com/ZJUGiveLab/UNet-Version                   |
 | swin transformer | https://github.com/SwinTransformer/Swin-Transformer-Semantic-Segmentation |
 
-### 所需环境
+## Required environment
 
-安装requirements.txt依赖
+Install the requirements.txt dependencies
 
+```
 pip install -r requirements.txt
+```
 
-### 训练步骤
 
-数据集准备
 
-#### 数据集下载
+## Training steps
+
+Dataset preparation
+
+#### Download dataset
 
 https://www.kaggle.com/datasets/awsaf49/brats20-dataset-training-validation
 
 https://www.kaggle.com/datasets/dschettler8845/brats-2021-task1
 
-#### 数据集预处理
+#### Dataset preprocessing
 
-运行data_progress.py
+Running the data_progress.py
 
-#### 训练数据集
+#### Model training
 
-运行train.py
+Running the train.py
 
 ```python
 CUDA_VISIBLE_DEVICES=0，1,2,3，4,5,6,7 python3 -m torch.distributed.launch --nproc_per_node 8 --master_port 20003 train.py
@@ -38,5 +42,9 @@ CUDA_VISIBLE_DEVICES=0，1,2,3，4,5,6,7 python3 -m torch.distributed.launch --n
 
 
 
-### Citing Brain-Tumor-Segmentation-Framework-with-Deep-Nuanced-Reasoning-and-Swin-T
+### Citing Brain-Tumor-Segmentation-Framework-with-Deep-Nuanced-Reasoning-and-Swin-T.
+
+```
+Will be presented after the paper is published.
+```
 
