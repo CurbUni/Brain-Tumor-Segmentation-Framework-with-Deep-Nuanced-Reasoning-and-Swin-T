@@ -16,8 +16,6 @@ Install the requirements.txt dependencies
 pip install -r requirements.txt
 ```
 
-
-
 ## Training steps
 
 Dataset preparation
@@ -32,12 +30,16 @@ https://www.kaggle.com/datasets/dschettler8845/brats-2021-task1
 
 Running the data_progress.py
 
+```python
+python data_progress.py
+```
+
 #### Model training
 
 Running the train.py
 
 ```python
-CUDA_VISIBLE_DEVICES=0，1,2,3，4,5,6,7 python3 -m torch.distributed.launch --nproc_per_node 8 --master_port 20003 train.py
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 -m torch.distributed.launch --nproc_per_node 8 --master_port 20003 train.py
 ```
 
 
@@ -45,6 +47,6 @@ CUDA_VISIBLE_DEVICES=0，1,2,3，4,5,6,7 python3 -m torch.distributed.launch --n
 ### Citing Brain-Tumor-Segmentation-Framework-with-Deep-Nuanced-Reasoning-and-Swin-T.
 
 ```
-Will be presented after the paper is published.
+This will be presented after the paper is published.
 ```
 
