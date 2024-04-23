@@ -1,6 +1,6 @@
 # Brain-Tumor-Segmentation-Framework-with-Deep-Nuanced-Reasoning-and-Swin-T
 
-## 相关仓库
+### 相关仓库
 
 | 模型             | 路径                                                         |
 | ---------------- | ------------------------------------------------------------ |
@@ -34,6 +34,18 @@ https://www.kaggle.com/datasets/dschettler8845/brats-2021-task1
 
 ```python
 CUDA_VISIBLE_DEVICES=0，1,2,3，4,5,6,7 python3 -m torch.distributed.launch --nproc_per_node 8 --master_port 20003 train.py
+```
+
+### citing
+
+```
+@article{xu2024brain,
+  title={Brain tumour segmentation framework with deep nuanced reasoning and Swin-T},
+  author={Xu, Yang and Yu, Kun and Qi, Guanqiu and Gong, Yifei and Qu, Xiaolong and Yin, Li and Yang, Pan},
+  journal={IET Image Processing},
+  year={2024},
+  publisher={Wiley Online Library}
+}
 ```
 
 
