@@ -1,5 +1,3 @@
-# CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 -m torch.distributed.launch --nproc_per_node 8 --master_port 20003 train.py
-
 from glob import glob
 import argparse
 import os
@@ -10,7 +8,7 @@ import time
 from dataset import Dataset
 import torch
 import torch.optim
-from models import model
+from models.model import whole_model
 import torch.distributed as dist
 from losses import BCEDiceLoss
 from metrics import iou_score
@@ -26,7 +24,7 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument('--user', default='yk', type=str)
 
-parser.add_argument('--experiment', default='new_swin_transformer_one', type=str)
+parser.add_argument('--experiment', default='model', type=str)
 
 parser.add_argument('--date', default=local_time.split(' ')[0], type=str)
 
@@ -45,7 +43,7 @@ parser.add_argument('--mode', default='train', type=str)
 
 parser.add_argument('--dataset', default='Dataset', type=str)
 
-parser.add_argument('--model_name', default='new_swin_transformer_one', type=str)
+parser.add_argument('--model_name', default='model', type=str)
 
 parser.add_argument('--lr', default=0.0002, type=float)
 
@@ -211,7 +209,7 @@ def main():
     torch.distributed.init_process_group('nccl')
     torch.cuda.set_device(args.local_rank)
 
-    model = model()
+    model = whole_model()
 
     model.cuda(args.local_rank)
     model = nn.parallel.DistributedDataParallel(model, device_ids=[args.local_rank], output_device=args.local_rank,
@@ -221,7 +219,6 @@ def main():
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr, weight_decay=args.weight_decay, amsgrad=args.amsgrad)
 
     criterion = BCEDiceLoss().cuda()
-    # criterion = getattr(criterions, args.criterion)
 
     checkpoint_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'checkpoint_2021',
                                   args.experiment + args.date)
@@ -331,7 +328,6 @@ def main():
             logging.info('Estimated remaining training time: {:.2f} hours!'.format(remaining_time_hour))
 
         if args.local_rank == 0:
-            # ---------判断是否早停-----------#
             if not args.early_stop is None:
                 if trigger >= args.early_stop:
                     end_time = time.time()
@@ -344,7 +340,6 @@ def main():
             torch.cuda.empty_cache()
 
     if args.local_rank == 0:
-        # writer.close()
 
         final_name = os.path.join(checkpoint_dir, 'model_epoch_last.pth')
         torch.save({
@@ -368,16 +363,13 @@ def log_args(log_file):
         '%(asctime)s ===> %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S')
 
-    # args FileHandler to save log file
     fh = logging.FileHandler(log_file)
     fh.setLevel(logging.DEBUG)
     fh.setFormatter(formatter)
 
-    # args StreamHandler to print log to console
     ch = logging.StreamHandler()
     ch.setLevel(logging.DEBUG)
     ch.setFormatter(formatter)
 
-    # add the two Handler
     logger.addHandler(ch)
     logger.addHandler(fh)

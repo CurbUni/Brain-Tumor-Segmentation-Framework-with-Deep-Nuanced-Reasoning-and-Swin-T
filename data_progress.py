@@ -53,9 +53,7 @@ if __name__ == '__main__':
     t2_name = "_t2.nii.gz"
     mask_name = "_seg.nii.gz"
 
-    # 是否生成训练集.npy
     train_data_label = True
-    # 是否生成测试集.npy
     test_data_label = True
 
     brats_path = "/21TB/yk/data/BraTS2021_Training_Data"
